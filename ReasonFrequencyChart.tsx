@@ -1,0 +1,1 @@
+// ReasonFrequencyChart component
