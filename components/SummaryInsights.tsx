@@ -2,10 +2,20 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { downloadCSV } from "@/lib/downloadCSV";
 
-export default function SummaryInsights({ data }: { data: any }) {
+interface DataRow {
+  Performance: string;
+  "Predicted Total Payments": number;
+  "Total Payments": number;
+}
+
+interface DiagnosticCounts {
+  [key: string]: number;
+}
+
+export default function SummaryInsights({ data }: { data: DataRow[] }) {
   const totalWeeks = data.length;
   const diagnosticCounts = data.reduce(
-    (acc: any, row: any) => {
+    (acc: DiagnosticCounts, row: DataRow) => {
       const perf = row["Performance"];
       acc[perf] = (acc[perf] || 0) + 1;
       return acc;
@@ -13,7 +23,7 @@ export default function SummaryInsights({ data }: { data: any }) {
     {}
   );
 
-  const missedOpportunity = data.reduce((acc: number, row: any) => {
+  const missedOpportunity = data.reduce((acc: number, row: DataRow) => {
     return row["Performance"] === "Under Performed"
       ? acc + (row["Predicted Total Payments"] - row["Total Payments"])
       : acc;
