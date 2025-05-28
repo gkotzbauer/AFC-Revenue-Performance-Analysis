@@ -1,0 +1,1 @@
+// DiagnosticsTable component
