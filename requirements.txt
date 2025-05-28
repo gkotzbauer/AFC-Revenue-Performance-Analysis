@@ -1,4 +1,7 @@
 pandas
-numpy
 openpyxl
 scikit-learn
+shap
+xlrd
+matplotlib
+seaborn
